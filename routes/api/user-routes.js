@@ -1,11 +1,14 @@
 const router = require('express').Router();
-const { addFriend, removeFriend } = require('../../controllers/comment-controller');
+const { getAllUsers, getSingleUser, createUser, updateUser, deleteUser, addFriend, removeFriend } = require('../../controllers/user-controller');
 
-// /api/comments/<friendId>
-router.route('/:friendId').post(addFriend);
+router.route('/').get(getAllUsers).post(createUser);
 
-// /api/users/:userId/friends/:friendId
+router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser);
 
-router.route('/:userId/friends/:friendId').delete(removeFriend);
+// // /api/comments/<friendId>
+router.route('/:userId/friends/:friendId').put(addFriend);
+
+// // /api/users/:userId/friends/:friendId
+router.route('/:userId/friends/:friendId').put(removeFriend);
 
 module.exports = router;
